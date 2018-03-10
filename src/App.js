@@ -9,8 +9,8 @@ class App extends Component {
     super();
     this.state={
       jokes:[{
+        text:"",
         id:0,
-        jokes:"This is a joke"
       }],
       name:""
     }
@@ -18,29 +18,33 @@ class App extends Component {
   }
   componentDidMount(){
     axios.get('http://localhost:4020/api/joke').then((res)=>
-    {console.log(res)
+    {
     this.setState({
         jokes:res.data,
-      }),
-      console.log(this.state.jokes)}
+        })
+      }
+      
     )
     
   }
   
 
   render() {
-    console.log(this.state.jokes);
+    const {jokes}=this.state;
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Chuck Norris Jokes</h1>
         </header>
-        
-        <div className="oneJoke">
-          <GetJoke jokes={this.state.jokes}/>
-          
-        </div>
+        <div>
+        {jokes.map(joke=>
+          (<GetJoke joke={joke.text}
+          id={joke.id}
+          key={joke.id}
+        />))}
+          </div>
+       
         
         
         

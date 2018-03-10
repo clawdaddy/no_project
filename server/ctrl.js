@@ -1,7 +1,7 @@
 let jokes = [
     {
         id:0,
-        joke:"Filming on location for Walker: \
+        text:"Filming on location for Walker: \
         Texas Ranger, Chuck Norris brought a stillborn baby \
         lamb back to life by giving it a prolonged beard rub. \
         Shortly after the farm animal sprang back to life and a \
@@ -10,6 +10,11 @@ let jokes = [
           more that Chuck giveth, and the good Chuck,\
            he taketh away."
     },
+    {
+        id:1,
+        text:"People can swim on water but Chuck Norris can swim on Land"
+
+    }
 ];
 module.exports = {
     theJokes :(req,res)=>

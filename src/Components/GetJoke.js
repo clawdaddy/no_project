@@ -17,12 +17,14 @@ export default class GetJoke extends Component{
     // }
 
     render(){
-        console.log(this.props.jokes)
-
+        const {id,joke}=this.props;
+        console.log(id,joke);
         
         return(
         <div>
-            <p>{this.props.jokes[0].joke}</p>
+            <ul>
+            <li key={id}>{joke}</li>
+            </ul>
         </div>
             )
     }

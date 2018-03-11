@@ -1,30 +1,25 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-
+import NextJoke from "./NextJoke"
+import PrevJoke from "./PrevJoke"
+console.log(this.props);
 export default class GetJoke extends Component{
-    // constructor(){
-    //     super();
-    //     this.state={
-    //         id:0,
-    //         joke:"",
-    //     }
-
-    // }
-
-    // chooseJoke(){
-
-        
-    // }
-
     render(){
-        const {id,joke}=this.props;
-        console.log(id,joke);
+        console.log(this.props);
+        const {currentId, jokes}=this.props;
+        
+        const {id, text}=jokes[currentId];
+        console.log(currentId,jokes);
+        console.log(id,text);
         
         return(
         <div>
-            <ul>
-            <li key={id}>{joke}</li>
-            </ul>
+            { <p key={currentId}>{text}</p>}
+            <PrevJoke prevJokeFn = {this.props.prevJokeFn}
+            currentId = {this.props.currentId}/>
+
+        <NextJoke nextJokeFn = {this.props.nextJokeFn}
+        currentId = {this.props.currentId}/>
         </div>
             )
     }

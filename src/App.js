@@ -4,6 +4,7 @@ import './App.css';
 import GetJoke from './Components/GetJoke';
 import axios from 'axios';
 
+
 class App extends Component {
   constructor(){
     super();
@@ -12,9 +13,11 @@ class App extends Component {
         text:"",
         id:0,
       }],
+      currentId:0,
       name:""
     }
-  //  this.state=this.state.bind(this);
+  this.nextJoke=this.nextJoke.bind(this);
+  this.prevJoke=this.prevJoke.bind(this);
   }
   componentDidMount(){
     axios.get('http://localhost:4020/api/joke').then((res)=>
@@ -22,33 +25,55 @@ class App extends Component {
     this.setState({
         jokes:res.data,
         })
+        
       }
-      
     )
-    
+  }
+
+  nextJoke(id){
+    let number=id+1;
+    if (number===this.state.jokes.length){
+      null
+    }
+    else{
+    this.setState({
+      currentId:number,
+    })
+  }
   }
   
+  prevJoke(id){
+    let number=id-1;
+    if (number===-1){
+      null
+    }
+    else {
+      this.setState({
+        currentId:number
+      })
+    }
+  }
 
   render() {
-    const {jokes}=this.state;
+    const {currentId, jokes}=this.state;
+    console.log(currentId,jokes);
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Chuck Norris Jokes</h1>
-        </header>
+        
         <div>
-        {jokes.map(joke=>
-          (<GetJoke joke={joke.text}
-          id={joke.id}
-          key={joke.id}
-        />))}
-          </div>
-       
-        
-        
-        
-        
+        {
+           jokes[0] 
+        ? <GetJoke 
+          currentId={currentId}
+          key={currentId}
+          jokes={jokes}
+          nextJokeFn={this.nextJoke}
+          prevJokeFn={this.prevJoke}
+        />
+        :null
+        }
+        {/* <ChangeJoke joke={/> */}
+          </div>  
       </div>
     );
   }

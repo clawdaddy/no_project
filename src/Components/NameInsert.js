@@ -25,14 +25,14 @@ export default class NameInsert extends Component{
         let text= jokes[currentId].text.split(" ")
         console.log(text)
         let newText = text.map((word)=> word==="Chuck" ||word==="Chuck," || word==="Chuck."
-        ? word=this.state.nameToInsert 
-        :word=word
-    )
+            ? word=this.state.nameToInsert 
+            :word=word
+        )
     console.log(newText);
     let editedText = "";
     newText.map((word)=>editedText+=` ${word}`)
     console.log(editedText);
-    // this.setState({insertedName:insertedName})
+    this.setState({insertedName:editedText})
     
 
     }

@@ -4,7 +4,7 @@ import './App.css';
 import GetJoke from './Components/GetJoke';
 import axios from 'axios';
 import NameInsert from './Components/NameInsert'
-
+import SaveFav from './Components/SaveFav'
 
 class App extends Component {
   constructor(){
@@ -19,6 +19,7 @@ class App extends Component {
     }
   this.nextJoke=this.nextJoke.bind(this);
   this.prevJoke=this.prevJoke.bind(this);
+  this.saveJoke=this.saveJoke.bind(this);
   }
   componentDidMount(){
     axios.get('http://localhost:4020/api/joke').then((res)=>
@@ -26,7 +27,6 @@ class App extends Component {
     this.setState({
         jokes:res.data,
         })
-        
       }
     )
   }
@@ -55,6 +55,16 @@ class App extends Component {
     }
   }
 
+  saveJoke(name, currentId){
+    axios.post(`http://localhost:4020/api/fav/`, {currentId, name}
+    ).then(result=>
+      {
+        alert("Joke saved");
+        console.log(result);
+      }
+    )
+  }
+  
   render() {
     const {currentId, jokes}=this.state;
     console.log(currentId,jokes);
@@ -80,7 +90,8 @@ class App extends Component {
         nextJokeFn={this.nextJoke}
         prevJokeFn={this.prevJokeFn}
         />
-        
+        <SaveFav saveJokeFn={this.saveJoke}
+        currentId={currentId}/>
           </div>  
       </div>
     );

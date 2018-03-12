@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import GetJoke from './Components/GetJoke';
 import axios from 'axios';
+import NameInsert from './Components/NameInsert'
 
 
 class App extends Component {
@@ -65,14 +66,21 @@ class App extends Component {
            jokes[0] 
         ? <GetJoke 
           currentId={currentId}
-          key={currentId}
+          
           jokes={jokes}
           nextJokeFn={this.nextJoke}
           prevJokeFn={this.prevJoke}
         />
         :null
         }
-        {/* <ChangeJoke joke={/> */}
+        <NameInsert 
+        currentId={currentId}
+        
+        jokes={jokes}
+        nextJokeFn={this.nextJoke}
+        prevJokeFn={this.prevJokeFn}
+        />
+        
           </div>  
       </div>
     );

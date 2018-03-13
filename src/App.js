@@ -5,6 +5,7 @@ import GetJoke from './Components/GetJoke';
 import axios from 'axios';
 import NameInsert from './Components/NameInsert'
 import SaveFav from './Components/SaveFav'
+import RetrieveFav from './Components/RetrieveFav'
 
 class App extends Component {
   constructor(){
@@ -15,11 +16,18 @@ class App extends Component {
         id:0,
       }],
       currentId:0,
-      name:""
+      
+      favorites:{
+        name:"",
+        fav:[],
+      }
     }
+    
+    
   this.nextJoke=this.nextJoke.bind(this);
   this.prevJoke=this.prevJoke.bind(this);
   this.saveJoke=this.saveJoke.bind(this);
+  this.getFav=this.getFav.bind(this);
   }
   componentDidMount(){
     axios.get('http://localhost:4020/api/joke').then((res)=>
@@ -30,7 +38,31 @@ class App extends Component {
       }
     )
   }
-
+  getFav(name){
+    axios.get(`http://localhost:4020/api/fav/`, {name}).then((res)=>
+  {this.setState({
+    favorites:res.favorites,
+        }
+      )
+      console.log(res.favorites)
+    }
+    
+  )
+  console.log(this.state.favorites);
+  }
+  
+  
+  saveJoke(name, currentId){
+    axios.post(`http://localhost:4020/api/fav/`, {currentId, name}
+    ).then(result=>
+      {
+        alert("Joke saved");
+        console.log(result);
+      }
+    )
+  }
+  
+  
   nextJoke(id){
     let number=id+1;
     if (number===this.state.jokes.length){
@@ -55,19 +87,11 @@ class App extends Component {
     }
   }
 
-  saveJoke(name, currentId){
-    axios.post(`http://localhost:4020/api/fav/`, {currentId, name}
-    ).then(result=>
-      {
-        alert("Joke saved");
-        console.log(result);
-      }
-    )
-  }
+  
   
   render() {
-    const {currentId, jokes}=this.state;
-    console.log(currentId,jokes);
+    const {currentId, jokes, favorites}=this.state;
+    console.log(currentId,jokes, favorites);
     return (
       <div className="App">
         
@@ -92,6 +116,10 @@ class App extends Component {
         />
         <SaveFav saveJokeFn={this.saveJoke}
         currentId={currentId}/>
+        <RetrieveFav getFavFn = {this.getFav}
+        jokes = {jokes}
+        favorites = {favorites}
+        />
           </div>  
       </div>
     );

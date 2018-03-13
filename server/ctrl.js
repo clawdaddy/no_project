@@ -29,7 +29,9 @@ class Favorite {
         this.fav=fav;
     }
 }
-
+function obtainFav(req){
+    
+}
 function addFave(req){
     
     const {currentId,name} = req.body;
@@ -41,11 +43,11 @@ function addFave(req){
         console.log(obj.name, obj.fav)
         console.log(currentId,name)
 
-        if (obj.name===name && obj.fav.includes(JSON(currentId))){
+        if (obj.name===name && obj.fav.includes(currentId+"")){
                 console.log("already favorited");
                 null;
             }
-            else if (obj.name===name && !obj.fav.includes(JSON(currentId))){
+            else if (obj.name===name && !obj.fav.includes(currentId+"")){
                 console.log("new ID");
                 obj.fav.push(currentId);
             }
@@ -56,22 +58,6 @@ function addFave(req){
             }
         }
 
-        // switch(obj){
-        //     case obj.name===name && obj.fav.includes(JSON(currentId)):
-        //         console.log("null");
-        //         null;
-        //         break;
-        //     case obj.name===name && !obj.fav.includes(JSON(currentId)):
-        //         console.log("justID");
-        //         obj.fav.push(currentId);
-        //         break;
-        //     case obj.name!==name:
-        //         console.log("newName");
-        //         let newName = new Favorite(name, currentId);
-        //         favorites.push(newName);
-            
-
-        
     )
     console.log(favorites)
 }
@@ -87,8 +73,10 @@ module.exports = {
     newFave : (req,res)=>{
         addFave(req);
         res.status(200).json(favorites)
+    },
+    getFav: (req,res)=>{
+        res.status(200).json()
     }
-
     
 
     

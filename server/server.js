@@ -13,7 +13,8 @@ app.use(bodyParser.json());
 
 
 app.get('/api/joke', ctrl.theJokes)
-app.post(`/api/fav`, ctrl.newFave)
+app.post(`/api/name:id`, ctrl.createName)
 app.get(`/api/fav`, ctrl.getFav)
+app.put(`/api/fav`, ctrl.updateJokes)
 
 app.listen(port,()=>console.log("I can't believe we're listening to port "+port))

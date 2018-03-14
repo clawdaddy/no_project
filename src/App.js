@@ -6,7 +6,9 @@ import axios from 'axios';
 import NameInsert from './Components/NameInsert'
 import SaveFav from './Components/SaveFav'
 import RetrieveFav from './Components/RetrieveFav'
-
+//first task--get rid of id off of jokes and use the array index instead
+//current Id could probably stay, and would simply indicate that index number of
+//the array
 class App extends Component {
   constructor(){
     super();
@@ -52,8 +54,17 @@ class App extends Component {
   }
   
   
-  saveJoke(name, currentId){
-    axios.post(`http://localhost:4020/api/fav/`, {currentId, name}
+  saveName(name){
+    axios.post(`http://localhost:4020/api/name?id=${name}`, {name}
+    ).then(result=>
+      {
+        alert("Joke saved");
+        console.log(result);
+      }
+    )
+  }
+  saveJoke(name,currentId){
+    axios.put(`http://localhost:4020/api/fav/`, {name,currentId}
     ).then(result=>
       {
         alert("Joke saved");
@@ -64,6 +75,7 @@ class App extends Component {
   
   
   nextJoke(id){
+    //rework this function for an array
     let number=id+1;
     if (number===this.state.jokes.length){
       null
@@ -76,6 +88,7 @@ class App extends Component {
   }
   
   prevJoke(id){
+    //rework this function for an array
     let number=id-1;
     if (number===-1){
       null
@@ -90,23 +103,22 @@ class App extends Component {
   
   
   render() {
+    //rework all of this for jokes as an array instead of as an object
     const {currentId, jokes, favorites}=this.state;
     console.log(currentId,jokes, favorites);
     return (
       <div className="App">
         
         <div>
-        {
-           jokes[0] 
-        ? <GetJoke 
+        
+        <GetJoke 
           currentId={currentId}
           
           jokes={jokes}
           nextJokeFn={this.nextJoke}
           prevJokeFn={this.prevJoke}
         />
-        :null
-        }
+        
         <NameInsert 
         currentId={currentId}
         

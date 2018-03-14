@@ -5,6 +5,7 @@ import PrevJoke from "./PrevJoke"
 console.log(this.props);
 export default class GetJoke extends Component{
     render(){
+        //rework this for jokes as an array instead of as an object
         console.log(this.props);
         const {currentId, jokes}=this.props;
         

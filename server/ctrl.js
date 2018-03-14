@@ -32,9 +32,9 @@ class Favorite {
 function obtainFav(req){
     
 }
-function addFave(req){
+function addName(req){
     
-    const {currentId,name} = req.body;
+    const {name} = req.params;
     
     let newFav = [];
     
@@ -43,23 +43,27 @@ function addFave(req){
         console.log(obj.name, obj.fav)
         console.log(currentId,name)
 
-        if (obj.name===name && obj.fav.includes(currentId+"")){
+        if (obj.name===name){
                 console.log("already favorited");
                 null;
             }
-            else if (obj.name===name && !obj.fav.includes(currentId+"")){
-                console.log("new ID");
-                obj.fav.push(currentId);
-            }
+            // else if (obj.name===name && !obj.fav.includes(currentId+"")){
+            //     console.log("new ID");
+            //     obj.fav.push(currentId);
+            // }
             else if (obj.name!==name){
                 console.log("new name")
-                let newName = new Favorite(name, currentId);
+                let newName = new Favorite(name, -1);
                 favorites.push(newName);
             }
         }
 
     )
     console.log(favorites)
+}
+
+function newFav(req){
+
 }
 
 
@@ -70,12 +74,16 @@ module.exports = {
     {
         res.status(200).json(jokes)
     },
-    newFave : (req,res)=>{
-        addFave(req);
+    createName : (req,res)=>{
+        addName(req);
         res.status(200).json(favorites)
     },
     getFav: (req,res)=>{
         res.status(200).json()
+    },
+
+    updateJokes: (req,res)=>{
+
     }
     
 

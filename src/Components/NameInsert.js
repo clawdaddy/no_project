@@ -21,6 +21,7 @@ export default class NameInsert extends Component{
     }
     
     insertName(){
+        //rework this function for jokes as an array instead of as an object
         const {currentId,jokes} = this.props;
         let text= jokes[currentId].text.split(" ")
         console.log(text)

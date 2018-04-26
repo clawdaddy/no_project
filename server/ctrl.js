@@ -24,42 +24,36 @@ let favorites = [
     }
 ]
 class Favorite {
-    constructor(name,fav){
+    constructor(name){
         this.name=name;
-        this.fav=fav;
+        this.fav=[];
     }
 }
 function obtainFav(req){
     
 }
 function addName(req){
-    
-    const {name} = req.params;
-    
-    let newFav = [];
-    
-    let newFavorites = favorites.map((obj,i)=>{
-        console.log(obj);
-        console.log(obj.name, obj.fav)
-        console.log(currentId,name)
-
-        if (obj.name===name){
-                console.log("already favorited");
-                null;
-            }
-            // else if (obj.name===name && !obj.fav.includes(currentId+"")){
-            //     console.log("new ID");
-            //     obj.fav.push(currentId);
-            // }
-            else if (obj.name!==name){
-                console.log("new name")
-                let newName = new Favorite(name, -1);
-                favorites.push(newName);
-            }
+    const {name} = req.body;
+    let nameCount = 0;
+    let indexNumber = 0;
+    favorites.forEach((obj,i)=>{
+        obj.name===name
+        ? (nameCount += 1,
+            indexNumber = i)
+        :null
         }
-
+    
     )
-    console.log(favorites)
+    if (nameCount>=1){
+        return favorites[indexNumber];
+        console.log(favorites);
+    }
+    else {
+        favorites.push(new Favorite(name))
+        console.log(favorites);
+        return favorites[favorites.length-1];
+    }
+    console.log(favorites);
 }
 
 function newFav(req){
@@ -74,9 +68,9 @@ module.exports = {
     {
         res.status(200).json(jokes)
     },
-    createName : (req,res)=>{
-        addName(req);
-        res.status(200).json(favorites)
+    createName : (req,res, next)=>{
+        let currentUser = addName(req).name;
+        res.status(200).send({favorites,currentUser})
     },
     getFav: (req,res)=>{
         res.status(200).json()

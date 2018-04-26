@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 
 app.get('/api/joke', ctrl.theJokes)
-app.post(`/api/name:id`, ctrl.createName)
+app.post(`/api/name`, ctrl.createName)
 app.get(`/api/fav`, ctrl.getFav)
 app.put(`/api/fav`, ctrl.updateJokes)
 

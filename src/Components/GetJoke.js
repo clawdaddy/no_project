@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import NextJoke from "./NextJoke"
 import PrevJoke from "./PrevJoke"
-console.log(this.props);
+
 export default class GetJoke extends Component{
     render(){
         //rework this for jokes as an array instead of as an object

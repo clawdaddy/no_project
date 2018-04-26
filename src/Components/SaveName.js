@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 
-export default class SaveFav extends Component{
+export default class SaveName extends Component{
     constructor(){
         super();
         this.state=(
@@ -11,31 +11,22 @@ export default class SaveFav extends Component{
             }
         )
     }
-
-    
     handleChange(name){
         this.setState({
             name:name,
         })
     }
-
     handleClick(){
-        const {saveJokeFn, currentId}=this.props;
-        this.setState({
-            favJoke:currentId,
-        })
-        saveJokeFn(this.state.name,this.state.favJoke);
+        const {saveNameFn}=this.props;
+        saveNameFn(this.state.name);
 
     }
     render(){
-
         return (
             <div>
                 <input type="text" onChange={(e)=>this.handleChange(e.target.value)}/>
-                <button onClick={()=>this.handleClick()}>Save Favorite!</button>
-
+                <button onClick={()=>this.handleClick()}>Login!</button>
             </div>
         )
-
     }
 }
